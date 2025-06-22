@@ -1,4 +1,0 @@
-algorithm,domain,data,precision_effect,precision_precondition,recall_effect,recall_precondition
-sam,gripper,1,1.0,0.67,0.38,1.0
-sam,gripper,2,1.0,0.86,0.75,1.0
-sam,gripper,3,1.0,1.0,1.0,1.0
