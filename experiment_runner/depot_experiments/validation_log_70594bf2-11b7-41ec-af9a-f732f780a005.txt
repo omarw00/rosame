@@ -1,0 +1,7 @@
+Checking plan: /data/problem_generator/depot_problems/test/pfile83.solution
+
+Plan failed to execute
+
+
+Failed plans:
+ /data/problem_generator/depot_problems/test/pfile83.solution 

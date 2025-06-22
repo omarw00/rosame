@@ -1,0 +1,6 @@
+Checking plan: /data/test/pfile5.solution
+Bad plan file!
+
+
+Failed plans:
+ /data/test/pfile5.solution 

@@ -1,0 +1,11 @@
+Domain,Num triplets,fold,Algorithm,ok,no_solution,timeout,not_applicable,goal_not_achieved,solver_error,validated_against_expert_plan,not_validated_against_expert_plan,problems_ok,problems_no_solution,problems_timeout,problems_solver_error,problems_not_applicable,problems_goal_not_achieved,problems_validated_against_expert_plan,problems_not_validated_against_expert_plan
+farmland,3,0,nsam,3,6,0,0,0,1,0,0,"['pfile109.pddl', 'pfile105.pddl', 'pfile110.pddl']",[],[],[],[],[],[],[]
+farmland,5,0,nsam,5,4,0,0,0,1,0,0,"['pfile104.pddl', 'pfile109.pddl', 'pfile105.pddl', 'pfile110.pddl', 'pfile101.pddl']",[],[],[],[],[],[],[]
+farmland,7,0,nsam,6,3,0,0,0,1,0,0,"['pfile104.pddl', 'pfile109.pddl', 'pfile105.pddl', 'pfile110.pddl', 'pfile100.pddl', 'pfile101.pddl']",[],[],[],[],[],[],[]
+farmland,10,0,nsam,6,3,0,0,0,1,0,0,"['pfile104.pddl', 'pfile109.pddl', 'pfile105.pddl', 'pfile110.pddl', 'pfile100.pddl', 'pfile101.pddl']",[],[],[],[],[],[],[]
+farmland,20,0,nsam,8,1,0,0,0,1,0,0,"['pfile102.pddl', 'pfile104.pddl', 'pfile109.pddl', 'pfile105.pddl', 'pfile110.pddl', 'pfile107.pddl', 'pfile100.pddl', 'pfile101.pddl']",[],[],[],[],[],[],[]
+farmland,3,0,nRosame,3,6,0,0,0,1,0,0,"['pfile109.pddl', 'pfile105.pddl', 'pfile110.pddl']",[],[],[],[],[],[],[]
+farmland,5,0,nRosame,5,4,0,0,0,1,0,0,"['pfile104.pddl', 'pfile109.pddl', 'pfile105.pddl', 'pfile110.pddl', 'pfile101.pddl']",[],[],[],[],[],[],[]
+farmland,7,0,nRosame,6,3,0,0,0,1,0,0,"['pfile104.pddl', 'pfile109.pddl', 'pfile105.pddl', 'pfile110.pddl', 'pfile100.pddl', 'pfile101.pddl']",[],[],[],[],[],[],[]
+farmland,10,0,nRosame,6,3,0,0,0,1,0,0,"['pfile104.pddl', 'pfile109.pddl', 'pfile105.pddl', 'pfile110.pddl', 'pfile100.pddl', 'pfile101.pddl']",[],[],[],[],[],[],[]
+farmland,20,0,nRosame,8,1,0,0,0,1,0,0,"['pfile102.pddl', 'pfile104.pddl', 'pfile109.pddl', 'pfile105.pddl', 'pfile110.pddl', 'pfile107.pddl', 'pfile100.pddl', 'pfile101.pddl']",[],[],[],[],[],[],[]

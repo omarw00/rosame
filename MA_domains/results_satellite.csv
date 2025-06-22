@@ -1,0 +1,16 @@
+Algorithm,Domain,Num. Of Traces,Threshold,Epsilon,Fold,Unobserved_actions,precision_effect,precision_precondition,recall_effect,recall_precondition
+MAROSAME,satellite,1,NA,NA,0,0,0.57,0.63,0.52,0.71
+MAROSAME,satellite,2,NA,NA,0,0,0.57,0.61,0.52,0.64
+MAROSAME,satellite,3,NA,NA,0,0,0.71,0.67,0.67,0.71
+MAROSAME,satellite,4,NA,NA,0,0,0.71,0.62,0.71,0.71
+MAROSAME,satellite,5,NA,NA,0,0,0.71,0.67,0.67,0.71
+MAROSAME,satellite,6,NA,NA,0,0,0.71,0.67,0.67,0.71
+MAROSAME,satellite,7,NA,NA,0,0,0.71,0.67,0.67,0.71
+MAROSAME,satellite,8,NA,NA,0,0,0.71,0.67,0.67,0.71
+MAROSAME,satellite,9,NA,NA,0,0,0.57,0.63,0.52,0.71
+MAROSAME,satellite,10,NA,NA,0,0,0.71,0.62,0.71,0.71
+MAROSAME,satellite,11,NA,NA,0,0,0.71,0.62,0.71,0.71
+MAROSAME,satellite,12,NA,NA,0,0,0.71,0.62,0.71,0.71
+MAROSAME,satellite,13,NA,NA,0,0,0.71,0.62,0.71,0.71
+MAROSAME,satellite,14,NA,NA,0,0,0.71,0.62,0.71,0.71
+MAROSAME,satellite,15,NA,NA,0,0,0.71,0.62,0.71,0.71

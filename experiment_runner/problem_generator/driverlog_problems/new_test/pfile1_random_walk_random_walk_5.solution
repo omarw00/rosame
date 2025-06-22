@@ -1,0 +1,5 @@
+(walk driver4 s5 p3-5)
+(walk driver5 s6 p3-6)
+(walk driver5 p3-6 s3)
+(walk driver5 s3 p3-4)
+(walk driver1 s4 p4-1)

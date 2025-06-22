@@ -1,0 +1,9 @@
+Checking plan: /data/problem_generator/driverlog_problems/test/pfile8.solution
+Plan executed successfully - checking goal
+Plan valid
+Final value: 144 
+
+Successful plans:
+Value: 144
+ /data/problem_generator/driverlog_problems/test/pfile8.solution 144 
+

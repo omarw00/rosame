@@ -1,0 +1,13 @@
+Algorithm,Domain,Num. Of Traces,Threshold,Epsilon,Fold,Unobserved_actions,precision_effect,precision_precondition,recall_effect,recall_precondition
+sam,rover,100,0.1,0,0,2,1.0,0.47,0.69,0.6
+rosame,rover,100,0.1,0,0,0,0.68,0.4,0.64,0.55
+sam,rover,200,0.1,0,0,2,1.0,0.51,0.69,0.6
+rosame,rover,200,0.1,0,0,0,0.68,0.42,0.72,0.36
+sam,rover,400,0.1,0,0,1,1.0,0.62,0.71,0.56
+rosame,rover,400,0.1,0,0,0,0.71,0.51,0.66,0.41
+sam,satellite,100,0.1,0,0,3,1.0,0.4,0.33,0.9
+rosame,satellite,100,0.1,0,0,0,0.2,0.3,0.13,0.26
+sam,satellite,200,0.1,0,0,3,1.0,0.4,0.33,0.9
+rosame,satellite,200,0.1,0,0,0,0.2,0.4,0.13,0.46
+sam,satellite,400,0.1,0,0,2,1.0,0.6,0.53,0.8
+rosame,satellite,400,0.1,0,0,0,0.43,0.51,0.53,0.36

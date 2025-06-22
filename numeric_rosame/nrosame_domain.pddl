@@ -1,0 +1,83 @@
+(define (domain driverlog)
+(:requirements :typing :fluents :negative-preconditions :equality)
+(:types 	location locatable - object
+	driver truck obj - locatable
+)
+
+(:predicates (at ?obj - locatable ?loc - location)
+	(in ?obj1 - obj ?obj - truck)
+	(driving ?d - driver ?v - truck)
+	(link ?x - location ?y - location)
+	(path ?x - location ?y - location)
+	(empty ?v - truck)
+)
+
+(:functions (time-to-walk ?l1 - location ?l2 - location)
+	(time-to-drive ?l1 - location ?l2 - location)
+	(driven )
+	(walked )
+)
+
+(:action load-truck
+	:parameters (?a - location ?b - obj ?c - truck)
+	:precondition (and (at ?b ?a)
+	(at ?c ?a)
+	(<= (+ (* (driven ) 0.7682) (* (walked ) -0.6402)) 0)
+	(<= (+ (* (walked ) 0.1644) (* (driven ) -0.9864)) 0)
+	(<= (walked ) 6))
+	:effect (and (in ?b ?c)
+		(not (at ?b ?a)) 
+		))
+
+(:action unload-truck
+	:parameters (?a - location ?b - obj ?c - truck)
+	:precondition (and (at ?c ?a)
+	(in ?b ?c)
+	(<= (* (driven ) -1) -5)
+	(<= (driven ) 8)
+	(= (walked ) 6))
+	:effect (and (at ?b ?a)
+		(not (in ?b ?c)) 
+		))
+
+(:action board-truck
+	:parameters (?a - driver ?b - location ?c - truck)
+	:precondition (and (at ?a ?b)
+	(at ?c ?b)
+	(empty ?c)
+	(= (driven ) 0)
+	(= (walked ) 0))
+	:effect (and (driving ?a ?c)
+		(not (at ?a ?b))
+		(not (empty ?c)) 
+		))
+
+(:action drive-truck
+	:parameters (?a - driver ?b - location ?c - location ?d - truck)
+	:precondition (and (driving ?a ?d)
+	(link ?b ?c)
+	(<= (* (time-to-drive ?c ?b) -1) -1)
+	(<= (+ (* (driven ) 0.3487) (+ (* (time-to-drive ?c ?b) 0.8137) (* (walked ) -0.4650))) 0.8137)
+	(<= (+ (* (walked ) 0.4626) (+ (* (driven ) -0.3965) (* (time-to-drive ?c ?b) -0.7930))) -0.7930)
+	(<= (walked ) 6)
+	(= (time-to-drive ?b ?c) (time-to-drive ?c ?b))(not (= ?b ?c)))
+	:effect (and (at ?d ?b)
+		(at ?d ?c)
+(increase (driven ) (time-to-drive ?b ?c))))
+
+(:action walk
+	:parameters (?a - driver ?b - location ?c - location)
+	:precondition (and (path ?b ?c)
+	(<= (* (walked ) -1) 0)
+	(<= (walked ) 4)
+	(= (+ (* (time-to-walk ?b ?c) 1) (+ (* (walked ) 0.4000) (* (time-to-walk ?c ?b) -0.2000))) 3.2000)
+	(= (+ (* (walked ) 0.5000) (* (time-to-walk ?c ?b) 1)) 4)
+	(= (driven ) 1)(not (= ?b ?c)))
+	:effect (and (at ?a ?b)
+		(at ?a ?c)
+(decrease (time-to-walk ?b ?c) (+ (* (time-to-walk ?b ?c) 0.8000) (+ (* (walked ) 0.4000) -3.2000)))		
+(increase (walked ) (+ (* (time-to-walk ?b ?c) -0.2000) (+ (* (walked ) -0.6000) 4.8000)))		
+(assign (driven ) 1)		
+(assign (time-to-walk ?c ?b) (+ (* (time-to-walk ?b ?c) 0.2000) (+ (* (walked ) -0.4000) 3.2000)))))
+
+)

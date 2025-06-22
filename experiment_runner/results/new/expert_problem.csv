@@ -1,0 +1,2 @@
+Domain,Num triplets,fold,Algorithm,ok,no_solution,timeout,not_applicable,goal_not_achieved,solver_error,validated_against_expert_plan,not_validated_against_expert_plan,problems_ok,problems_no_solution,problems_timeout,problems_solver_error,problems_not_applicable,problems_goal_not_achieved,problems_validated_against_expert_plan,problems_not_validated_against_expert_plan
+depot,EXPERT,0,EXPERT,9,0,11,0,0,0,0,0,[],[],[],[],[],[],[],[]

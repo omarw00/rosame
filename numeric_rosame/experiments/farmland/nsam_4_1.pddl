@@ -1,0 +1,41 @@
+(define (domain farmland)
+(:requirements :typing :fluents :negative-preconditions :equality)
+(:types 	farm - object
+)
+
+(:predicates (adj ?f1 - farm ?f2 - farm)
+)
+
+(:functions (x ?b - farm)
+	(cost )
+)
+
+(:action move-fast
+	:parameters (?f1 - farm ?f2 - farm)
+	:precondition (and (adj ?f1 ?f2)
+	(adj ?f2 ?f1)
+	(<= (* (cost ) -1) 0)
+	(<= (+ (* (cost ) 0.9899) (* (x ?f1) 0.1414)) 2.6870)
+	(<= (+ (* (x ?f1) -0.1961) (* (cost ) -0.9806)) -2.5495)
+	(<= (cost ) 1)
+	(= (x ?f2) 0))
+	:effect (and 
+(increase (cost ) 1)		
+(decrease (x ?f1) 4)		
+(assign (x ?f2) 2)))
+
+(:action move-slow
+	:parameters (?f1 - farm ?f2 - farm)
+	:precondition (and (adj ?f1 ?f2)
+	(adj ?f2 ?f1)
+	(<= (* (cost ) -1) 0)
+	(<= (* (x ?f1) -1) -1)
+	(<= (+ (* (cost ) 0.7071) (* (x ?f1) -0.7071)) 0)
+	(<= (+ (* (x ?f1) 0.0767) (* (cost ) 0.9971)) 2.1475)
+	(<= (+ (* (x ?f1) 0.7071) (* (cost ) -0.7071)) 9.8995)
+	(= (x ?f2) 0))
+	:effect (and 
+(decrease (x ?f1) 1)		
+(assign (x ?f2) 1)))
+
+)
