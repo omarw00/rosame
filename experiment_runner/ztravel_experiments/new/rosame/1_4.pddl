@@ -1,0 +1,38 @@
+(define (domain zeno-travel)
+(:requirements :typing)
+(:types transportable city flevel - object
+	aircraft person - transportable
+)
+
+(:predicates (at ?x - transportable ?c - city)
+	(in ?a - aircraft ?p - person)
+	(fuel-level ?a - aircraft ?l - flevel)
+	(next ?l1 - flevel ?l2 - flevel)
+)
+
+(:action board
+	:parameters (?a - person ?b - aircraft ?c - city)
+	:precondition (and (at ?a ?c) (at ?b ?c))
+	:effect (and  (not (at ?a ?c))))
+
+(:action debark
+	:parameters (?a - person ?b - aircraft ?c - city)
+	:precondition (and (at ?b ?c))
+	:effect (and (at ?a ?c)))
+
+(:action fly
+	:parameters (?a - aircraft ?b - city ?c - city ?d - flevel ?e - flevel)
+	:precondition (and )
+	:effect (and (at ?a ?b) (at ?a ?c) (fuel-level ?a ?d) (fuel-level ?a ?e) (next ?d ?e) (next ?e ?d)))
+
+(:action zoom
+	:parameters (?a - aircraft ?b - city ?c - city ?d - flevel ?e - flevel ?f - flevel)
+	:precondition (and (at ?a ?b) (fuel-level ?a ?d))
+	:effect (and (at ?a ?c) (fuel-level ?a ?f) (not (at ?a ?b))  (not (fuel-level ?a ?d))))
+
+(:action refuel
+	:parameters (?a - aircraft ?b - city ?c - flevel ?d - flevel)
+	:precondition (and (next ?d ?c))
+	:effect (and (at ?a ?b) (fuel-level ?a ?c) (fuel-level ?a ?d) (next ?c ?d) (not (next ?d ?c))))
+
+)

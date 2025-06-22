@@ -1,0 +1,5 @@
+algorithm,domain,data,precision_effect,precision_precondition,recall_effect,recall_precondition
+sam,logistics,1,1.0,0.71,0.17,1.0
+sam,logistics,2,1.0,0.75,0.33,1.0
+sam,logistics,3,1.0,0.8,0.5,1.0
+sam,logistics,5,1.0,0.92,0.83,1.0

@@ -1,0 +1,9 @@
+Algorithm,Domain,Num. Of Traces,Threshold,Epsilon,Fold,Unobserved_actions,precision_effect,precision_precondition,recall_effect,recall_precondition
+MASAM,blocks,3,NA,NA,0,0,1.0,0.67,1.0,0.67
+MASAM,blocks,6,NA,NA,0,0,1.0,0.67,1.0,0.67
+MASAM,blocks,9,NA,NA,0,0,1.0,0.67,1.0,0.67
+MASAM,blocks,11,NA,NA,0,0,1.0,0.67,1.0,0.67
+MASAM,blocks,13,NA,NA,0,0,1.0,0.67,1.0,0.67
+MASAM,blocks,15,NA,NA,0,0,1.0,0.67,1.0,0.67
+MASAM,blocks,17,NA,NA,0,0,1.0,0.67,1.0,0.67
+MASAM,blocks,20,NA,NA,0,0,1.0,0.67,1.0,0.67

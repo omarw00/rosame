@@ -1,0 +1,38 @@
+(define (domain satellite)
+(:requirements :equality :negative-preconditions :typing)
+(:types 	satellite direction instrument mode - object
+)
+
+(:predicates (pointing ?s - satellite ?d - direction)
+	(have_image ?d - direction ?m - mode)
+	(calibrated ?i - instrument)
+	(supports ?i - instrument ?m - mode)
+	(on_board ?i - instrument ?agent - satellite)
+	(calibration_target ?i - instrument ?d - direction)
+	(power_avail ?agent - satellite)
+	(power_on ?i - instrument)
+	(dummy-additional-predicate )
+)
+
+(:action calibrate
+	:parameters (?s - satellite ?i - instrument ?d - direction)
+	:precondition (and (calibration_target ?i ?d)
+	(dummy-additional-predicate )
+	(on_board ?i ?s)
+	(pointing ?s ?d)
+	(power_on ?i))
+	:effect (and (calibrated ?i) 
+		))
+
+(:action take_image
+	:parameters (?s - satellite ?i - instrument ?d - direction ?m - mode)
+	:precondition (and (calibrated ?i)
+	(dummy-additional-predicate )
+	(on_board ?i ?s)
+	(pointing ?s ?d)
+	(power_on ?i)
+	(supports ?i ?m))
+	:effect (and (have_image ?d ?m) 
+		))
+
+)

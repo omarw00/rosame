@@ -1,0 +1,25 @@
+(define (domain blocksworld-4ops)
+(:requirements :strips :equality)
+(:types block - object)(:predicates (arm-empty) (clear ?a - block) (on-table ?a - block) (holding ?a - block) (on ?a - block ?b - block))
+
+(:action move-up
+  :parameters (?a - position ?b - position ?c - position ?d - tile)
+  :precondition (and)
+  :effect (and (at ?a ?b ?d) (at ?a ?c ?d) (at ?b ?a ?d) (at ?b ?c ?d) (at ?c ?a ?d) (at ?c ?b ?d) (blank ?a ?b) (blank ?a ?c) (blank ?b ?a) (blank ?b ?c) (blank ?c ?a) (blank ?c ?b) (inc ?a ?b) (inc ?a ?c) (inc ?b ?a) (inc ?b ?c) (inc ?c ?a) (inc ?c ?b) (dec ?a ?b) (dec ?a ?c) (dec ?b ?a) (dec ?b ?c) (dec ?c ?a) (dec ?c ?b)))
+
+(:action move-down
+  :parameters (?a - position ?b - position ?c - position ?d - tile)
+  :precondition (and (at ?a ?b ?d) (blank ?a ?c))
+  :effect (and (at ?a ?c ?d) (blank ?a ?b) (not (at ?a ?b ?d)) (not (blank ?a ?c))))
+
+(:action move-left
+  :parameters (?a - position ?b - position ?c - position ?d - tile)
+  :precondition (and (at ?c ?a ?d) (blank ?c ?b) (inc ?c ?b))
+  :effect (and (not (at ?c ?a ?d)) (not (blank ?c ?b)) (not (inc ?c ?b))))
+
+(:action move-right
+  :parameters (?a - position ?b - position ?c - position ?d - tile)
+  :precondition (and (at ?a ?b ?d) (at ?a ?c ?d) (at ?b ?a ?d) (at ?b ?c ?d) (at ?c ?a ?d) (at ?c ?b ?d) (blank ?a ?b) (blank ?a ?c) (blank ?b ?a) (blank ?b ?c) (blank ?c ?a) (blank ?c ?b) (inc ?a ?b) (inc ?a ?c) (inc ?b ?a) (inc ?b ?c) (inc ?c ?a) (inc ?c ?b) (dec ?a ?b) (dec ?a ?c) (dec ?b ?a) (dec ?b ?c) (dec ?c ?a))
+  :effect (and (not (blank ?c ?b))))
+
+)

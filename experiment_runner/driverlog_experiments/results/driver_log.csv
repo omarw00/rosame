@@ -1,0 +1,15 @@
+Algorithm,Domain,Num. Of Traces,Threshold,Epsilon,precision_effect,precision_precondition,recall_effect,recall_precondition
+sam,driverlog,10,NA,NA,1.0,0.89,0.71,0.57
+rosame,driverlog,10,NA,NA,0.63,0.64,0.86,0.64
+sam,driverlog,50,NA,NA,1.0,0.89,0.64,0.57
+rosame,driverlog,50,NA,NA,1.0,0.55,0.64,0.79
+sam,driverlog,100,NA,NA,1.0,0.92,1.0,0.86
+rosame,driverlog,100,NA,NA,1.0,0.86,1.0,0.86
+sam,driverlog,200,NA,NA,1.0,1.0,0.79,0.71
+rosame,driverlog,200,NA,NA,1.0,0.83,0.79,0.71
+sam,driverlog,300,NA,NA,1.0,0.91,0.79,0.71
+rosame,driverlog,300,NA,NA,0.8,0.75,0.86,0.86
+sam,driverlog,400,NA,NA,1.0,1.0,1.0,0.86
+rosame,driverlog,400,NA,NA,1.0,0.86,1.0,0.86
+sam,driverlog,1000,NA,NA,1.0,1.0,1.0,0.86
+rosame,driverlog,1000,NA,NA,1.0,0.86,1.0,0.86

@@ -1,0 +1,4 @@
+algorithm,domain,data,precision_effect,precision_precondition,recall_effect,recall_precondition
+sam,blocks,1,1.0,0.36,0.22,1.0
+sam,blocks,2,1.0,0.41,0.44,1.0
+sam,blocks,3,1.0,0.6,0.72,1.0

@@ -1,0 +1,5 @@
+(walk driver3 s4 p3-4)
+(load-truck s6 package24 truck2)
+(load-truck s3 package3 truck1)
+(unload-truck s6 package24 truck2)
+(load-truck s6 package44 truck2)

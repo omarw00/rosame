@@ -1,0 +1,7 @@
+Checking plan: /data/test/fold_0_1_10/pfile30.solution
+
+Plan failed to execute
+
+
+Failed plans:
+ /data/test/fold_0_1_10/pfile30.solution 

@@ -1,0 +1,60 @@
+(define (domain depot)
+(:requirements :strips :typing :negative-preconditions :equality)
+(:types 	place locatable - object
+	depot distributor - place
+	truck hoist surface - locatable
+	pallet crate - surface
+)
+
+(:predicates (at ?x - locatable ?y - place)
+	(on ?x - crate ?y - surface)
+	(in ?x - crate ?y - truck)
+	(lifting ?y - crate ?x - hoist)
+	(available ?x - hoist)
+	(clear ?x - surface)
+)
+
+(:action drive
+	:parameters (?a - place ?b - place ?c - truck)
+	:precondition (and (not (= ?a ?b)))
+	:effect (and (at ?c ?a) 
+		))
+
+(:action lift
+	:parameters (?a - crate ?b - hoist ?c - place ?d - surface)
+	:precondition (and (clear ?a))
+	:effect (and (at ?a ?c)
+		(available ?b)
+		(clear ?d)
+		(lifting ?a ?b)
+		(not (clear ?a))
+		(on ?a ?d) 
+		))
+
+(:action drop
+	:parameters (?a - crate ?b - hoist ?c - place ?d - surface)
+	:precondition (and (at ?a ?c)
+	(lifting ?a ?b))
+	:effect (and (clear ?a)
+		(not (at ?a ?c))
+		(not (lifting ?a ?b)) 
+		))
+
+(:action load
+	:parameters (?a - crate ?b - hoist ?c - place ?d - truck)
+	:precondition (and (available ?b)
+	(lifting ?a ?b))
+	:effect (and (in ?a ?d)
+		(not (available ?b))
+		(not (lifting ?a ?b)) 
+		))
+
+(:action unload
+	:parameters (?a - crate ?b - hoist ?c - place ?d - truck)
+	:precondition (and (in ?a ?d))
+	:effect (and (available ?b)
+		(lifting ?a ?b)
+		(not (in ?a ?d)) 
+		))
+
+)

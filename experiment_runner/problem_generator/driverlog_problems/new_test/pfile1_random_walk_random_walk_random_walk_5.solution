@@ -1,0 +1,5 @@
+(walk driver1 s4 p3-4)
+(walk driver3 s4 p3-4)
+(walk driver2 s5 p5-2)
+(load-truck s6 package39 truck2)
+(walk driver2 p5-2 s5)

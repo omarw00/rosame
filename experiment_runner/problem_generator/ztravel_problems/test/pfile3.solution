@@ -1,0 +1,8 @@
+(debark person9 plane1 city2)
+(debark person10 plane3 city0)
+(debark person11 plane3 city0)
+(debark person5 plane3 city0)
+(debark person6 plane3 city0)
+(debark person7 plane3 city0)
+(zoom plane3 city0 city1 fl6 fl5 fl4)
+(debark person4 plane3 city1)
