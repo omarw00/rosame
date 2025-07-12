@@ -31,19 +31,6 @@ class Predicate:
         # self.params_types = sorted(params.keys(), key=lambda x: x.name)
         self.params_types = list(params.keys())
 
-    ## TODO CHANGED!
-    # def proposition(self, sorted_obj_lists):
-    #     return (
-    #         self.name
-    #         + " "
-    #         + " ".join(
-    #             [
-    #                 f"{self.params_types[i].name} "
-    #                 + f" {self.params_types[i].name} ".join(sorted_obj_lists[i])
-    #                 for i in range(len(sorted_obj_lists))
-    #             ]
-    #         )
-    #     ).strip()
 
     def proposition(self, sorted_obj_lists):
         return (
@@ -85,7 +72,6 @@ class Action_Schema(nn.Module):
         self.name = name
         # params are dicts {Type: num}
         self.params = params
-        # self.params_types = sorted(params.keys(), key=lambda x: x.name)
         self.params_types = list(params.keys())
         # predicates that are relevant
         self.predicates = []
@@ -171,14 +157,10 @@ class Action_Schema(nn.Module):
             propositions.append(propositions_per_action)
         return actions, propositions
 
-    def pretty_print(self):
+    def pretty_print(self,params):
         var = {}
-        n = 0
-        for param_type in self.params_types:
-            var[param_type] = list(string.ascii_lowercase)[
-                n : n + self.params[param_type]
-            ]
-            n += self.params[param_type]
+        for params_type in self.params_types:
+            var[params_type] = params[params_type.name]
         propositions = [
             p for predicate in self.predicates for p in predicate.ground(var)
         ]
@@ -194,9 +176,6 @@ class Action_Schema(nn.Module):
             elif result[i] == 3:
                 precon_list.append(propositions[i])
                 deleff_list.append(propositions[i])
-        # print(", ".join(precon_list))
-        # print(", ".join(addeff_list))
-        # print(", ".join(deleff_list))
         return precon_list, addeff_list, deleff_list, var
 
 

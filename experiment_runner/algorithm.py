@@ -17,10 +17,7 @@ import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader, random_split
 import numpy as np
 import networkx as nx
-# sys.path.append("/Users/omarwattad/Documents/Action-Model-Research/sam_learning")
-# from sam_learning.learners.informed_sam import InformedSAMLearner
-# from sam_learning.learners.sam_learning import SAMLearner
-# from sam_learning.learners.informed_backup import BackupInformedSAMLearner
+from itertools import permutations
 
 
 def parse_state(state, partial_domain):
@@ -65,110 +62,21 @@ class Algorithm:
         self.objects = {}
         self.type_hierarchy_graph = None
         self.rosame = None
-        # self.sam = SAMLearner(self.domain)
-        # self.informed_sam_with = InformedSAMLearner(self.domain)
-        # self.informed_sam_without = BackupInformedSAMLearner(self.domain)
         self.epsilon = epsilon
         self.threshold = threshold
+        self.optimizer = None
+        self.opt_flag = True
 
     def add_problem(self,problem):
         self.problem = problem
         self.rosame = self.prepare_rosame()
-    #
-    # def sam_traces(self, traces):
-    #     """
-    #     Processes a list of traces by converting them into a non-typed representation.
-    #
-    #     Each trace consists of:
-    #     - A set of previous state represented as fluents.
-    #     - An action with associated parameters.
-    #     - A set of next state conditions after the action is executed.
-    #
-    #     The function removes type information from fluents and actions, producing a
-    #     simplified, non-typed representation of the traces.
-    #
-    #     Args:
-    #         traces (list of tuples): Each tuple represents a transition in the format
-    #                                  (previous state, action, next state), where:
-    #             - previous state (list of str): State fluents before the action.
-    #             - action (Action object): Action taken with parameters.
-    #             - next state (list of str): State fluents after the action.
-    #
-    #     Returns:
-    #         list of tuples: A list of processed traces in the format:
-    #                         (non_typed_previous_state, non_typed_action, non_typed_next_state,)
-    #     """
-    #     non_typed_triplets = []
-    #     for triplet in traces:
-    #         non_typed_pre = [" ".join(fluent.split()[::2]) for fluent in triplet[0]]
-    #         non_typed_next = [ " ".join(fluent.split()[::2]) for fluent in triplet[2]]
-    #         action_params = []
-    #         action = triplet[1].split()
-    #         for param in action[2::2]:
-    #             action_params.append(param)
-    #         action_params_str = " ".join(action_params)
-    #         non_typed_action = action[0] + " " + action_params_str
-    #
-    #         non_typed_triplets.append((non_typed_pre, non_typed_action, non_typed_next))
-    #     return non_typed_triplets
-    #
-    # def get_noisy_traces_sam(self,pre_state, action, next_state, threshold):
-    #     propositions = {v:k for k,v in self.rosame.propositions.items()}
-    #     action_order = {v:k for k,v in self.rosame.actions.items()}
-    #     triplets = []
-    #     for i in range(len(pre_state)):
-    #         pre = []
-    #         next = []
-    #
-    #         for ind in range(len(pre_state[i])):
-    #             if pre_state[i][ind] > threshold:
-    #                 pre.append(propositions[ind])
-    #             if next_state[i][ind] > threshold:
-    #                 next.append(propositions[ind])
-    #         act = action_order[action[i]]
-    #         triplets.append((pre, act, next))
-    #     return triplets
 
-
-    # def create_observations(self,traces=None):
-    #     """ Generates an observation object from the processed execution traces that SAM algorithm learns from"""
-    #     observation_high, observation_low = Observation(), Observation()
-    #     observation_high.grounded_objects = self.problem.objects
-    #     observation_low.grounded_objects = self.problem.objects
-    #
-    #     pre, action, next = self.prepare_rosame_data(self.epsilon)
-    #     if traces:
-    #         triplets_low = self.sam_traces(traces)
-    #     else:
-    #         triplets_low = self.get_noisy_traces_sam(pre, action, next, self.threshold)
-    #         triplets_low = self.sam_traces(triplets_low)
-    #
-    #     for triplet in triplets_low:
-    #         pre_state = parse_state(triplet[0],self.domain)
-    #         next_state = parse_state(triplet[2], self.domain)
-    #         action_call = self.trajectoy.parse_action_call([triplet[1].split()])
-    #         observation_low.add_component(pre_state, action_call, next_state)
-    #
-    #     triplets_high = self.get_noisy_traces_sam(pre, action, next, 1 - self.threshold)
-    #     triplets_high = self.sam_traces(triplets_high)
-    #
-    #     for triplet in triplets_high:
-    #         pre_state = parse_state(triplet[0], self.domain)
-    #         next_state = parse_state(triplet[2], self.domain)
-    #         action_call = self.trajectoy.parse_action_call([triplet[1].split()])
-    #         observation_high.add_component(pre_state, action_call, next_state)
-    #
-    #     return observation_low , observation_high
-    #
-    # def learn_sam(self,traces = None):
-    #     """Learns an action model using SAM learning."""
-    #     observation_low,observation_high = self.create_observations(traces)
-    #
-    #     # learned_sam, learned_data = self.sam.learn_action_model([observation_low])
-    #     learned_model, learning_data = self.informed_sam_with.learn_action_model([observation_low],[observation_high])
-    #     learned_without , without_learning_data = self.informed_sam_without.learn_action_model([observation_low],[observation_high])
-    #     return learned_model, learned_without, learning_data, without_learning_data
-    #     # return learned_sam, learned_data
+        if self.opt_flag:
+            parameters = []
+            for schema in self.rosame.action_schemas:
+                parameters.append({'params': schema.parameters(), 'lr': 1e-3})
+            self.optimizer = optim.Adam(parameters)
+            self.opt_flag = False
 
 
     def find_root_nodes(self,G: nx.DiGraph) -> str:
@@ -323,6 +231,7 @@ class Algorithm:
         actions = self._prepare_action_schema(self.domain.actions)
         self.objects = self.get_objects(self.problem.objects)
         model = self.get_domain_model({"types":types,"predicates":predicates,"action_schemas":actions})
+
         return model
 
     def ground_new_trajectory(self):
@@ -342,7 +251,35 @@ class Algorithm:
             noisy_trajectory.append(f_noise)
         return noisy_trajectory
 
-    def prepare_rosame_data(self,observation): ## TODO: For noise: it can be generated here!  CHANGED!!!
+    def check_predicate(self, predicate_str: str):
+        if predicate_str in self.rosame.propositions:
+            return predicate_str
+
+        parts = predicate_str.split()
+        action_name = parts[0]
+        arguments = parts[1:]
+
+        # Generate all permutations of the arguments
+        for perm in permutations(arguments):
+            candidate = f"{action_name} {' '.join(perm)}"
+            if candidate in self.rosame.propositions:
+                return candidate
+
+    def check_action(self, action_str: str):
+        if action_str in self.rosame.actions:
+            return self.rosame.actions[action_str]
+
+        parts = action_str.split()
+        action_name = parts[0]
+        arguments = parts[1:]
+
+        # Generate all permutations of the arguments
+        for perm in permutations(arguments):
+            candidate = f"{action_name} {' '.join(perm)}"
+            if candidate in self.rosame.actions:
+                return self.rosame.actions[candidate]
+
+    def prepare_rosame_data(self,observation):
         """
         Prepares structured data from traces to be used within the ROSAME framework, which the data should be encoded to True/False (0  and 1)
         using the triples that are created using macq every fluent is true takes 1 else 0
@@ -358,33 +295,21 @@ class Algorithm:
             if len(action_lst) != len(set(action_lst)):
                 continue
             next_state, pre_state = [], []
-            steps_action.append(self.rosame.actions[component.grounded_action_call.__str__()[1:-1]])
+            steps_action.append(self.check_action(component.grounded_action_call.__str__()[1:-1]))
+
             for _, val in component.next_state.state_predicates.items():
                 for pred in val:
-                    next_state.append(pred.untyped_representation[1:-1])
+                    next_state.append(self.check_predicate(pred.untyped_representation[1:-1]))
+
             for _, val in component.previous_state.state_predicates.items():
                 for pred in val:
-                    pre_state.append(pred.untyped_representation[1:-1])
+                    pre_state.append(self.check_predicate(pred.untyped_representation[1:-1]))
+
             state1 = [1 if p in pre_state else 0 for p in self.rosame.propositions]
             state2 = [1 if p in next_state else 0 for p in self.rosame.propositions]
             steps_state1.append(state1)
             steps_state2.append(state2)
 
-        # for pre_state, action, next_state in self.traces:
-        #     action_obj_params = [o for o in action.obj_params]
-        #     action_str = self.check_rosame_action(f"{action.name} {' '.join([o.details() for o in action_obj_params])}")
-        #     steps_action.append(self.rosame.actions[action_str])
-        #
-        #     pre = [self.check_rosame_predicate(p) for p in pre_state]
-        #     next = [self.check_rosame_predicate(p) for p in next_state]
-        #
-        #     state1 = [1 if p in pre else 0 for p in self.rosame.propositions]
-        #     state2 = [1 if p in next else 0 for p in self.rosame.propositions]
-        #     state1 = self.generate_noise(state1)
-        #     state2 = self.generate_noise(state2)
-        #
-        #     steps_state1.append(state1)
-        #     steps_state2.append(state2)
         return steps_state1, steps_action, steps_state2
 
     def learn_rosame(self, observation,epochs=100):
@@ -400,15 +325,15 @@ class Algorithm:
         dataset = TensorDataset(steps_state1_tensor, steps_action_tensor, steps_state2_tensor)
         dataloader = DataLoader(dataset, batch_size=batch_sz, shuffle=False)
 
-        parameters = []
-        for schema in self.rosame.action_schemas:
-            parameters.append({'params': schema.parameters(), 'lr': 1e-3})
-        optimizer = optim.Adam(parameters)
+        # parameters = [] #TODO: maybe have to be initialized only one time per learning process(?)
+        # for schema in self.rosame.action_schemas:
+        #     parameters.append({'params': schema.parameters(), 'lr': 1e-3})
+        # optimizer = optim.Adam(parameters)
 
         for epoch in range(epochs):
             loss_final = 0.0
             for i, (state_1, executed_actions, state_2) in enumerate(dataloader):
-                optimizer.zero_grad()
+                self.optimizer.zero_grad()
                 precon, addeff, deleff = self.rosame.build(executed_actions)
                 preds = state_1 * (1 - deleff) + (1 - state_1) * addeff
                 loss = F.mse_loss(preds, state_2, reduction='sum')
@@ -419,7 +344,7 @@ class Algorithm:
                 #     loss += model.constraint_loss()
                 loss += 0.2 * F.mse_loss(precon, torch.ones(precon.shape, dtype=precon.dtype), reduction='sum')
                 loss.backward()
-                optimizer.step()
+                self.optimizer.step()
                 loss_final += loss.item() / batch_sz
             if epoch % 10 == 0:
                 print('Epoch {} RESULTS: Average loss: {:.10f}'.format(epoch, loss_final))
@@ -469,15 +394,33 @@ class Algorithm:
 
         return "\n".join(types_strs)
 
+    def _signature_to_pddl(self,action) -> str:
+        """Converts the action's signature to the PDDL format.
+
+        :return: the PDDL format of the signature.
+        """
+        signature_str_items = []
+        for parameter_name, parameter_type in self.domain.actions[action.name].signature.items():
+            signature_str_items.append(f"{parameter_name} - {str(parameter_type)}")
+
+        signature_str = " ".join(signature_str_items)
+        return f"({signature_str})"
+
+    def get_params_names(self,action):
+        param_types = defaultdict(list)
+        for parameter_name, parameter_type in action.signature.items():
+            param_types[str(parameter_type)].append(parameter_name[1:])
+        return param_types
+
     def to_pddl_action(self, action):
         """Returns the PDDL string representation of the action.
         :return: the PDDL string representing the action.
         """
-
-        precondition, add_eff, delete_eff, param = action.pretty_print()
+        params = self.get_params_names(self.domain.actions[action.name])
+        precondition, add_eff, delete_eff, param = action.pretty_print(params) # TODO: Fix names
         action_string = (
             f"(:action {action.name}\n"
-            f"\t:parameters {self.action_params_pddl(param)}\n"
+            f"\t:parameters {self._signature_to_pddl(action)}\n" # TODO: Fix order
             f"\t:precondition {self.precondition_pddl(precondition)}\n"
             f"\t:effect {self.effects_pddl(add_eff,delete_eff)}"
         )
@@ -503,7 +446,6 @@ class Algorithm:
         return "\n".join(types_strs)
 
     def rosame_to_pddl(self):
-        # TODO: take it from sam
         predicates = "\n\t".join([str(p) for p in self.domain.predicates.values()])
         predicates_str = f"(:predicates {predicates}\n)\n\n" if len(self.domain.predicates) > 0 else ""
         functions = "\n\t".join([str(p) for p in self.domain.functions.values()])
@@ -531,13 +473,3 @@ class Algorithm:
 
 
 
-
-#
-# ### USAGE
-# traces = TraceGenerator("/Users/omarwattad/Documents/Action Model - Research/rosame/action_model_inference/gripper/domain.pddl","/Users/omarwattad/Documents/Action Model - Research/rosame/action_model_inference/gripper/prob02.pddl")
-# model = Algorithm(traces,10,10)
-# model.learn_rosame()
-# learned_model, _ = model.learn_sam()
-# print(learned_model.to_pddl())
-# print("//////////////////////////////////////////")
-# print(model.to_pddl())
