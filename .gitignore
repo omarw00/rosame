@@ -1,6 +1,6 @@
 *.log
 .DS_Store
-# Results or logs
+
 experiment_runner/results/
 *.csv
 *.pddl
