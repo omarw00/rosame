@@ -1,2 +1,17 @@
 *.log
 .DS_Store
+# Results or logs
+experiment_runner/results/
+*.csv
+*.pddl
+experiment_runner/ztravel_experiments/validation_log*
+experiment_runner/satellite_experiments/validation_log*
+experiment_runner/rovers_experiments/validation_log*
+experiment_runner/driverlog_experiments/validation_log*
+experiment_runner/depot_experiments/validation_log*
+
+
+__pycache__/
+*.pyc
+
+.idea/
