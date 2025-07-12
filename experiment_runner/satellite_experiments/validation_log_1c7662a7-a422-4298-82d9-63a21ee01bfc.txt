@@ -1,7 +1,0 @@
-Checking plan: /data/problem_generator/satellite_problems/test/pfile14.solution
-
-Plan failed to execute
-
-
-Failed plans:
- /data/problem_generator/satellite_problems/test/pfile14.solution 

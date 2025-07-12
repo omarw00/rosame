@@ -1,7 +1,0 @@
-Checking plan: /data/problem_generator/depot_problems/test/pfile92.solution
-
-Plan failed to execute
-
-
-Failed plans:
- /data/problem_generator/depot_problems/test/pfile92.solution 
