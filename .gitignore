@@ -9,7 +9,8 @@ experiment_runner/satellite_experiments/validation_log*
 experiment_runner/rovers_experiments/validation_log*
 experiment_runner/driverlog_experiments/validation_log*
 experiment_runner/depot_experiments/validation_log*
-
+experiment_runner/results/new/
+experiment_runner/results/noise/
 
 __pycache__/
 *.pyc
