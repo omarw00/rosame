@@ -11,6 +11,7 @@ experiment_runner/driverlog_experiments/validation_log*
 experiment_runner/depot_experiments/validation_log*
 experiment_runner/results/new/
 experiment_runner/results/noise/
+experiment_runner/*.csv
 
 __pycache__/
 *.pyc
