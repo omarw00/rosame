@@ -1,5 +1,10 @@
 ## ROSAME
-ROSAME (neuRO-Symbolic Action Model lEarner) is a differentiable neuro-symbolic framework for learning lifted action models from visual traces. This repository contains a modified implementation of the original ROSAME algorithm introduced in the ICAPS 2024 paper by Xi, Gould, and Thiébaux.
+
+**ROSAME** (neuRO-Symbolic Action Model lEarner) is a differentiable neuro-symbolic framework for learning lifted action models from visual traces. This repository contains a **modified implementation** of the original ROSAME algorithm introduced in the ICAPS 2024 paper:
+
+📄 **"ROSAME: neuRO-Symbolic Action Model lEarner"**  
+by [Kaiyu Xi](https://users.cecs.anu.edu.au/~u7176586/), [Stephen Gould](https://users.cecs.anu.edu.au/~sgould/), and [Sylvie Thiébaux](https://users.cecs.anu.edu.au/~thiebaux/)  
+🔗 [**Read the paper**](https://users.cecs.anu.edu.au/~thiebaux/papers/icaps24-rosame.pdf)
 
 ## 🔍 Overview
 The original ROSAME framework combines:
