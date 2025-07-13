@@ -27,7 +27,7 @@ This repository builds upon that foundation with several modifications and enhan
     - Using grounded predicates with `Predicate.ground()` (specific to ROSAME).
   
   - **Trace Generator:**  
-    Generates trajectories (state-action traces) from the domain and problem files, accounting for domain-specific adjustments (such as string modifications for logistics).
+    Generates trajectories (state-action traces) from the domain and problem files.
   
   - **Learning Phase:**  
     The ROSAME algorithm processes the generated trajectories:
