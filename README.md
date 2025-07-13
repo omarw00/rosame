@@ -56,14 +56,17 @@ The ROSAME experimental pipeline is designed to support a full workflow from pro
     Outputs:
       Trajectory traces that document state transitions.
 
-  - **Algorithm (ROSAME)**
-      **Process:**
-        1. Receives domain and trace data.
-        2. First grounds trajectories using ground_new_trajectory().
-        3. Then iteratively learns the action model with learn_rosame(), over varying epochs (e.g., 100 or 200).
+- **Algorithm (ROSAME)**  
+  The core learning component that builds symbolic action models from trace data.
 
-    **Iterative Learning:**
-        The experimental loops iterate over different numbers of trajectories, cross-validation folds, and epoch settings.
+  **Process:**
+  1. Receives the domain definition and corresponding trajectory traces.
+  2. Preprocesses and grounds the data using `ground_new_trajectory()`.
+  3. Learns the lifted action models by calling `learn_rosame()`, training over a specified number of epochs (e.g., 100 or 200).
 
+  **Iterative Learning:**
+  The training procedure runs multiple experiments across:
+  - Varying numbers of input trajectories.
+  - Multiple cross-validation folds.
+  - Different epoch settings for learning robustness and stability.
 
-  
