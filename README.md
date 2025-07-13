@@ -69,7 +69,7 @@ The ROSAME experimental pipeline is designed to support a full workflow from pro
   - Varying numbers of input trajectories.
   - Multiple cross-validation folds.
   - Different epoch settings for learning robustness and stability.
-  - 
+    
   **Pseudo-code Example:**
     ```python
     experiment = ExperimentRunner(domain_file)
