@@ -69,4 +69,36 @@ The ROSAME experimental pipeline is designed to support a full workflow from pro
   - Varying numbers of input trajectories.
   - Multiple cross-validation folds.
   - Different epoch settings for learning robustness and stability.
+  - 
+  **Pseudo-code Example:**
+    ```python
+    experiment = ExperimentRunner(domain_file)
+
+    for num_traj in NUM_OF_TRAJ_LIST:
+        for fold in FOLDS:
+            for epoch in EPOCHS:
+                algorithm = Algorithm(domain_file)
+
+                for num_prob in range(fold * num_traj, (fold + 1) * num_traj):
+                    # Parse problem and trajectory
+                    problem = ProblemParser(problem_file, domain=domain).parse_problem()
+                    trajectory = TrajectoryParser(domain, problem).parse_trajectory(trajectory_file)
+
+                    # Update problem and objects
+                    algorithm.add_problem(problem)
+
+                    # Ground and learn
+                    algorithm.ground_new_trajectory()
+                    algorithm.learn_rosame(trajectory, epoch)
+    
+            # Save learned model domain.
+            algorithm.export_rosame_domain(leaned_model_path)
+
+            # Run statistical experiments on the learned domain.
+            experiment.run_single_experiment(learned_model_path,'rosame',num_traj,fold=fold,epoch=epoch)
+    
+    # Export statistical results
+    experiment.export_statistics(path_to_results)
+
+
 
