@@ -4,16 +4,15 @@ ROSAME (neuRO-Symbolic Action Model lEarner) is a differentiable neuro-symbolic 
 ## 🔍 Overview
 The original ROSAME framework combines:
 
-Deep learning for visual state prediction from image traces.
-Symbolic reasoning to infer lifted STRIPS-like action models.
-End-to-end differentiability, enabling joint optimization of perception and symbolic model learning.
-This repository builds upon that foundation with several modifications and enhancements, including:
-
-🧠 Improved neural architecture for state prediction.
-🛠️ Refactored symbolic learner for better modularity and extensibility.
-📊 New evaluation metrics for model quality and generalization.
-🧪 Additional experiments on custom datasets and ablation studies.
-
+- Deep learning for visual state prediction from image traces.
+- Symbolic reasoning to infer lifted STRIPS-like action models.
+- End-to-end differentiability, enabling joint optimization of perception and symbolic model learning.
+- This repository builds upon that foundation with several modifications and enhancements:
+  - New evaluation metrics for model quality and generalization.
+  - Additional experiments on custom datasets and ablation studies.
+  -  Numeric Learning Support:
+    - Preliminary integration of numeric fluents into the learning process.
+    - Enables ROSAME to operate in domains with continuous effects or numeric preconditions.
 ## 🔧 Key Features
 
 - **Algorithm Adaptation & Extension:**  
