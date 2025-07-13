@@ -33,7 +33,7 @@ This repository builds upon that foundation with several modifications and enhan
     The ROSAME algorithm processes the generated trajectories:
     - **Trajectory Grounding:** Prepares raw data using `ground_new_trajectory()`.
     - **Model Learning:** Updates the model using `learn_rosame()`, typically over 100–200 epochs.
-    - 
+      
 ## 🧪 ROSAME Experiment Runner
 The ROSAME experimental pipeline is designed to support a full workflow from problem generation to model evaluation. Here’s an overview of its components:
 
