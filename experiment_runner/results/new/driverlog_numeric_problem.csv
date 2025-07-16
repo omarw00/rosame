@@ -1,6 +1,0 @@
-Domain,Num triplets,fold,Algorithm,ok,no_solution,timeout,not_applicable,goal_not_achieved,solver_error,validated_against_expert_plan,not_validated_against_expert_plan,problems_ok,problems_no_solution,problems_timeout,problems_solver_error,problems_not_applicable,problems_goal_not_achieved,problems_validated_against_expert_plan,problems_not_validated_against_expert_plan
-driverlog,3,0,nsam,0,5,5,0,0,0,0,0,[],[],[],[],[],[],[],[]
-driverlog,5,0,nsam,0,1,9,0,0,0,0,0,[],[],[],[],[],[],[],[]
-driverlog,7,0,nsam,1,1,8,0,0,0,0,0,['pfile103.pddl'],[],[],[],[],[],[],[]
-driverlog,10,0,nsam,1,1,8,0,0,0,0,0,['pfile103.pddl'],[],[],[],[],[],[],[]
-driverlog,20,0,nsam,2,0,8,0,0,0,0,0,"['pfile103.pddl', 'pfile107.pddl']",[],[],[],[],[],[],[]

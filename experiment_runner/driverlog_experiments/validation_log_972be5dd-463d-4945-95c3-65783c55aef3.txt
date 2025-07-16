@@ -1,9 +1,0 @@
-Checking plan: /data/problem_generator/driverlog_problems/test/pfile15.solution
-Plan executed successfully - checking goal
-Plan valid
-Final value: 62 
-
-Successful plans:
-Value: 62
- /data/problem_generator/driverlog_problems/test/pfile15.solution 62 
-
