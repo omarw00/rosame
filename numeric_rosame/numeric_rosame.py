@@ -1,10 +1,8 @@
-from operator import truediv
 
-from experiment_runner.algorithm import Algorithm
 from experiment_runner.trace_generator import TraceGenerator
 import sys
 
-from experiment_runner.algorithm import Algorithm
+from experiment_runner.rosame_runner import Rosame_Runner
 from rosame_n_sam import OnlyNumericSam
 from pddl_plus_parser.lisp_parsers import DomainParser, ProblemParser, TrajectoryParser
 from pddl_plus_parser.models import Operator
@@ -22,7 +20,7 @@ class NumericRosame:
         self.domain_file = domain_file
         self.problem_file = problem_file
         self.trace_generator = TraceGenerator(domain_file,problem_file)
-        self.algorithm = Algorithm(self.trace_generator,traces)
+        self.algorithm = Rosame_Runner(self.trace_generator, traces)
         self.nsam = None
 
     def prepare_rosame_data(self, trajectory_path):
@@ -147,7 +145,7 @@ class NumericRosame:
         partial_domain = DomainParser(dir_path + "/sailing_domain.pddl",partial_parsing=False).parse_domain()
         for num_traj in [1,2,3,4,5,6,7,8,9,10,15]:
             for fold in range(5):
-                algorithm = Algorithm(trace_generator,None)
+                algorithm = Rosame_Runner(trace_generator, None)
                 observations = []
                 for num_prob in range(fold * num_traj, (fold + 1) * num_traj):
                     print(num_traj, fold, num_prob)
