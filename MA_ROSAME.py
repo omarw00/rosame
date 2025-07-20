@@ -8,7 +8,7 @@ import torch.nn.functional as F
 from pddl_plus_parser.lisp_parsers import ProblemParser, TrajectoryParser
 from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
-from experiment_runner.algorithm import Algorithm
+from experiment_runner.rosame_runner import Rosame_Runner
 import sys
 from pathlib import Path
 from pddl_plus_parser.models import Domain, Observation, State, ActionCall, PDDLFunction, Predicate, GroundedPredicate, create_type_hierarchy_graph
@@ -114,7 +114,7 @@ def learn_rosame(model, observation):
             print(f"[Epoch {epoch}] Avg Loss: {epoch_loss:.6f}")
 
 dataset_path = Path("/Users/omarwattad/Downloads/ma-sam-main/experiments_dataset")
-algo = Algorithm(dataset_path / "satellite/satellite_combined_domain.pddl")
+algo = Rosame_Runner(dataset_path / "satellite/satellite_combined_domain.pddl")
 partial_domain = DomainParser(dataset_path / "satellite/satellite_combined_domain.pddl",partial_parsing=True).parse_domain()
 print(partial_domain.to_pddl())
 observations = []
