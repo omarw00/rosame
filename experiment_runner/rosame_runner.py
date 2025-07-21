@@ -49,7 +49,7 @@ def parse_grounded_predicate(grounded_predicate_ast: List[str],
     return GroundedPredicate(name=predicate_name, signature=lifted_predicate.signature,
                              object_mapping=object_mapping, is_positive=True)
 
-class Algorithm:
+class Rosame_Runner:
     '''
     A class for learning algorithms that prepares the data and learn an action model from generated traces.
     '''
@@ -71,12 +71,12 @@ class Algorithm:
         self.problem = problem
         self.rosame = self.prepare_rosame()
 
-        if self.opt_flag:
-            parameters = []
-            for schema in self.rosame.action_schemas:
-                parameters.append({'params': schema.parameters(), 'lr': 1e-3})
-            self.optimizer = optim.Adam(parameters)
-            self.opt_flag = False
+        # if self.opt_flag:
+        #     parameters = []
+        #     for schema in self.rosame.action_schemas:
+        #         parameters.append({'params': schema.parameters(), 'lr': 1e-3})
+        #     self.optimizer = optim.Adam(parameters)
+        #     self.opt_flag = False
 
 
     def find_root_nodes(self,G: nx.DiGraph) -> str:
@@ -325,15 +325,15 @@ class Algorithm:
         dataset = TensorDataset(steps_state1_tensor, steps_action_tensor, steps_state2_tensor)
         dataloader = DataLoader(dataset, batch_size=batch_sz, shuffle=False)
 
-        # parameters = [] #TODO: maybe have to be initialized only one time per learning process(?)
-        # for schema in self.rosame.action_schemas:
-        #     parameters.append({'params': schema.parameters(), 'lr': 1e-3})
-        # optimizer = optim.Adam(parameters)
+        parameters = [] #TODO: maybe have to be initialized only one time per learning process(?)
+        for schema in self.rosame.action_schemas:
+            parameters.append({'params': schema.parameters(), 'lr': 1e-3})
+        optimizer = optim.Adam(parameters)
 
         for epoch in range(epochs):
             loss_final = 0.0
             for i, (state_1, executed_actions, state_2) in enumerate(dataloader):
-                self.optimizer.zero_grad()
+                optimizer.zero_grad()
                 precon, addeff, deleff = self.rosame.build(executed_actions)
                 preds = state_1 * (1 - deleff) + (1 - state_1) * addeff
                 loss = F.mse_loss(preds, state_2, reduction='sum')
@@ -344,7 +344,7 @@ class Algorithm:
                 #     loss += model.constraint_loss()
                 loss += 0.2 * F.mse_loss(precon, torch.ones(precon.shape, dtype=precon.dtype), reduction='sum')
                 loss.backward()
-                self.optimizer.step()
+                optimizer.step()
                 loss_final += loss.item() / batch_sz
             if epoch % 10 == 0:
                 print('Epoch {} RESULTS: Average loss: {:.10f}'.format(epoch, loss_final))
