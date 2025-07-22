@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='rosame_v1',
+    name='rosame',
     version='0.1',
     packages=find_packages(),
     install_requires=[
