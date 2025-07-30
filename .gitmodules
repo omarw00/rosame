@@ -1,0 +1,6 @@
+[submodule "algorithms/algorithms/sam_learning"]
+	path = algorithms/algorithms/sam_learning
+	url = https://github.com/argaman-aloni/sam_learning.git
+[submodule "algorithms/sam_learning"]
+	path = algorithms/sam_learning
+	url = https://github.com/argaman-aloni/sam_learning.git

@@ -51,7 +51,7 @@ def parse_grounded_predicate(grounded_predicate_ast: List[str],
 
 class Rosame_Runner:
     '''
-    A class for learning algorithms that prepares the data and learn an action model from generated traces.
+    A class for learning algorithms that prepares the data and learn an action model from generated traces.x
     '''
     def __init__(self, domain_file, problem = None, traces = None, threshold = 1, epsilon = 0):
         self.traces = traces
@@ -252,8 +252,8 @@ class Rosame_Runner:
         return noisy_trajectory
 
     def check_predicate(self, predicate_str: str):
-        if predicate_str in self.rosame.propositions:
-            return predicate_str
+        if predicate_str.rstrip() in self.rosame.propositions:
+            return predicate_str.rstrip()
 
         parts = predicate_str.split()
         action_name = parts[0]
@@ -266,8 +266,8 @@ class Rosame_Runner:
                 return candidate
 
     def check_action(self, action_str: str):
-        if action_str in self.rosame.actions:
-            return self.rosame.actions[action_str]
+        if action_str.rstrip() in self.rosame.actions:
+            return self.rosame.actions[action_str.rstrip()]
 
         parts = action_str.split()
         action_name = parts[0]
@@ -429,7 +429,6 @@ class Rosame_Runner:
 
     def _constants_to_pddl(self,domain) -> str:
         """Converts the constants to a PDDL string.
-
         :return: the PDDL string representing the constants.
         """
         same_type_constant = defaultdict(list)
